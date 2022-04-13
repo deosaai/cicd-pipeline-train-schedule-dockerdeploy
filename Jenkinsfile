@@ -9,8 +9,16 @@ pipeline {
             }
         }
         stage('Initialize'){
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    echo 'Initializing'
+                    def dockerHome = tool 'myDocker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+                }
+            }
         }
         stage('Build Docker Image') {
             when {
