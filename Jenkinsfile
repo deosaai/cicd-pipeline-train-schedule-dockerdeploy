@@ -8,19 +8,6 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
-        stage('Initialize'){
-            when {
-                branch 'master'
-            }
-            steps {
-                script {
-                    echo 'Initializing'
-                    def dockerHome = tool 'myDocker'
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
-                    systemctl start docker
-                }
-            }
-        }
         stage('Build Docker Image') {
             when {
                 branch 'master'
