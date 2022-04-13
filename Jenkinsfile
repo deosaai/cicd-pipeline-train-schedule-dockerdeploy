@@ -26,6 +26,7 @@ pipeline {
             }
             steps {
                 script {
+                    systemctl start docker
                     app = docker.build("deosaai/train-schedule")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
