@@ -17,6 +17,7 @@ pipeline {
                     echo 'Initializing'
                     def dockerHome = tool 'myDocker'
                     env.PATH = "${dockerHome}/bin:${env.PATH}"
+                    systemctl start docker
                 }
             }
         }
@@ -26,7 +27,6 @@ pipeline {
             }
             steps {
                 script {
-                    systemctl start docker
                     app = docker.build("deosaai/train-schedule")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
